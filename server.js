@@ -38,6 +38,21 @@
  app.get("getMovie/id",getMovieHandler)
  app.use(handleError);
 
+ function (req, res) {
+    const url = populerUrl ;
+    console.log("before .then");
+    axios.get(url).then(result => {
+        // console.log(result.data.data);
+        let movieObj = result.data.data;
+        let movie = new Movie(movieObj);
+        res.json(movie);
+
+    
+    }).catch(error => {
+        console.log(error);
+    })
+
+}
 
  function updateHandler(req, res) {
     let id = req.params.AnimeId;
