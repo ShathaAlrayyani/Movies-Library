@@ -1,23 +1,30 @@
 `use strict`
 
+
  let PORT = process.env.PORT || 3001 ;
+
  const bodyParser = require('body-parser');
  require('dotenv').config();
  const { default: axios } = require("axios");
  let express = require("express");
+
  let apiKey = "05156c2c63a8902e2252fa022c9b2124";
  let trendingUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=37ddc7081e348bf246a42f3be2b3dfd0&language=en-US"
  let searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=668baa4bb128a32b82fe0c15b21dd699&language=en-US&query=The&page=2"
  let populerUrl = "https://api.themoviedb.org/3/movie/popular?api_key=05156c2c63a8902e2252fa022c9b2124&language=en-US&page=1"
- let topUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=05156c2c63a8902e2252fa022c9b2124&language=en-US&page=1"
+ let topUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=05156c2c63a8902e2252fa022c9b2124&language=en-US&page=1
 
  // creat express app
  let app = express();
-
  let movieData = require("./Movie data/data.json");
- //let movieUrl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${apiKey}&language=en-US`
 
- 
+ //let movieUrl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${apiKey}&language=en-US`
+ // API linkes 
+ let apiKey = "05156c2c63a8902e2252fa022c9b2124";
+ let trendingUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=37ddc7081e348bf246a42f3be2b3dfd0&language=en-US"
+ let searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=668baa4bb128a32b82fe0c15b21dd699&language=en-US&query=The&page=2"
+ let populerUrl = "https://api.themoviedb.org/3/movie/popular?api_key=05156c2c63a8902e2252fa022c9b2124&language=en-US&page=1";
+ let topMoviesUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=05156c2c63a8902e2252fa022c9b2124&language=en-US&page=1";
  
  app.listen(PORT,() => {
     console.log(`Hello on port ${PORT}`);
@@ -39,6 +46,7 @@
  app.delete('/DELETE/id', deleteHandler);
  app.get("getMovie/id",getMovieHandler)
  app.use(handleError);
+
 
  function (req, res) {
     const url = populerUrl ;
@@ -81,7 +89,7 @@ function deleteHandler(req, res) {
 
 function postHandler(req,res){
 
-}
+} 
 
  function getHandler(req, res) {
     let sql = `SELECT * FROM Movies ;`;
@@ -144,17 +152,6 @@ function trendingHandler(req,res){
         ))
 }
 
-   /* let movieInfo = new Movie(
-        movieData.id,
-        movieData.title,
-        movieData.release_date,
-        movieData.poster_path,
-        movieData.overview,
-        )
-        */
-   
-
-
 function searchHandler (req,res){
     axios.get(searchUrl).then(mov1 => {
         let searchMovies = mov1.data.results.map(movies => {
@@ -190,8 +187,6 @@ function handleParams(req, res) {
             }
     
     }
-    */
-
 
 /*Handle errors
 Create a function to handle the server error (status 500)
@@ -202,3 +197,11 @@ Response Example:
 "responseText": "Sorry, something went wrong"
 }
 */
+/* let movieInfo = new Movie(
+        movieData.id,
+        movieData.title,
+        movieData.release_date,
+        movieData.poster_path,
+        movieData.overview,
+        )
+        */
