@@ -8,12 +8,6 @@
  const { default: axios } = require("axios");
  let express = require("express");
 
- let apiKey = "05156c2c63a8902e2252fa022c9b2124";
- let trendingUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=37ddc7081e348bf246a42f3be2b3dfd0&language=en-US"
- let searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=668baa4bb128a32b82fe0c15b21dd699&language=en-US&query=The&page=2"
- let populerUrl = "https://api.themoviedb.org/3/movie/popular?api_key=05156c2c63a8902e2252fa022c9b2124&language=en-US&page=1"
- let topUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=05156c2c63a8902e2252fa022c9b2124&language=en-US&page=1
-
  // creat express app
  let app = express();
  let movieData = require("./Movie data/data.json");
