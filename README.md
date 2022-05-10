@@ -21,5 +21,5 @@ section for want to watch later
 
 
 app.get("/getMovies", getHandler);
- app.post("/addMovie" ,postHandler);
- app.use(handelError);
+app.post("/addMovie" ,postHandler);
+app.use(handelError);
