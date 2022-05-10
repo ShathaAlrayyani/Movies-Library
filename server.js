@@ -28,6 +28,8 @@
  app.get("/favorite", favoriteHandler);
  app.get("/trending",trendingHandler);
  app.get("/search",searchHandler);
+ app.get("/populer",populerHandler);
+ app.get("/top-movies",topHandler)
  app.get('/params/:id/:name', handleParams);
 
  //CRUD
