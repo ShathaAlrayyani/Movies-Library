@@ -18,3 +18,8 @@ section for top movies ranked by users and us box office
 section for filtering the movies by category 
 section for your favorite movies 
 section for want to watch later 
+
+
+app.get("/getMovies", getHandler);
+ app.post("/addMovie" ,postHandler);
+ app.use(handelError);
