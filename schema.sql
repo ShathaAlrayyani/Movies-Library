@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS Movies
-CREATE TABLE IF NOT EXISTS Movies (
+DROP TABLE IF EXISTS movies;
+CREATE TABLE IF NOT EXISTS movies (
 
-    Movie_Id  varchar(255),
+    Id  SERIAL PRIMARY KEY,
     Movie_Name varchar(255),
-    image  varchar(255),
-
+    Poster  varchar(255)
+)
 
 
 
