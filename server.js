@@ -1,5 +1,6 @@
 `use strict`
 
+
  let PORT = process.env.PORT || 3001 ;
  const express = require("express");
  require("dotenv").config();
@@ -252,8 +253,6 @@ function Film (movieData) {
             }
     
     }
-    */
-
 
 /*Handle errors
 Create a function to handle the server error (status 500)
@@ -264,3 +263,11 @@ Response Example:
 "responseText": "Sorry, something went wrong"
 }
 */
+/* let movieInfo = new Movie(
+        movieData.id,
+        movieData.title,
+        movieData.release_date,
+        movieData.poster_path,
+        movieData.overview,
+        )
+        */
