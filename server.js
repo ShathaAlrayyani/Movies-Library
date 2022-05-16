@@ -1,20 +1,23 @@
 `use strict`
 
+ require("dotenv").config();
 
- let PORT = process.env.PORT || 3001 ;
+ let PORT = process.env.PORT || 3005 ;
+ 
  const {Client} = require("pg");
  const client = new Client(process.env.DATABASE_URL);
  const bodyParser = require('body-parser');
-
-
  const express = require("express");
- require("dotenv").config();
+ let app = express();
+
+
+ 
  const { default: axios } = require("axios");
  let cors = require("cors");
  
 
  app.use(bodyParser.json());
- let app = express();
+
  app.use(cors());
  let movieData = require("./Movie_data/data.json");
 
@@ -30,11 +33,6 @@
  let populerUrl = "https://api.themoviedb.org/3/movie/popular?api_key=05156c2c63a8902e2252fa022c9b2124&language=en-US&page=1";
  let topMoviesUrl = "https://api.themoviedb.org/3/movie/top_rated?api_key=05156c2c63a8902e2252fa022c9b2124&language=en-US&page=1";
  
-  
- app.listen(PORT,() => {
-    console.log(`Hello on port ${PORT}`);
-});
-
 
  app.get("/", handlehomePage);
  app.get("/favorite", favoriteHandler);
@@ -49,9 +47,9 @@
  app.post("/addMovie" ,postHandler);
  app.get("/getMovies", getHandler);
 
- app.put('/UPDATE/MovieId', updateHandler);
- app.delete('/DELETE/MovieId', deleteHandler);
- app.get("/getMovie/MovieId",getMovieHandler);
+ app.put('/UPDATE/:MovieId', updateHandler);
+ app.delete('/DELETE/:MovieId', deleteHandler);
+ app.get("/getMovie/:MovieId",getMovieHandler);
 
  app.use(handleError);
 
@@ -81,9 +79,11 @@ function Film (title,poster_path,overview) {
     this.overview = overview;
 } 
 
-function handleError(error,req,res){
-    res.status(500).send(error ,"Sorry, something went wrong");
-    res.status(401).send(error , "Page not found");
+function handleError(err,req,res){
+    console.log(err);
+   res.status(500).send(err ,"Sorry, something went wrong");
+
+   // res.status(401).send(error , "Page not found");
 }
 
 
@@ -199,7 +199,9 @@ function postHandler(req,res){
     client.query(sql, values).then(result => {
         console.log(result.rows[0]);
         res.json(result.rows)
-    }).catch()
+    }).catch((err) => {
+        handleError(err, req, res);
+    })
 
 }
 
@@ -209,19 +211,21 @@ function postHandler(req,res){
     let id = req.params.MovieId;
     let comment = req.body.comment
 
-    let sql = `UPDATE movies SET comment =$1  WHERE id = ${id} RETURNING *`;
+    let sql = `UPDATE movies SET comment =$1  WHERE id = ${id} RETURNING *;`
     let values = [comment];
 
     client.query(sql, values).then(result => {
         console.log(result.rows[0]);
         res.json(result.rows[0]);
-    }).catch()
+    }).catch((err) => {
+        handleError(err, req, res);
+    })
 }
 
 function deleteHandler(req, res) {
     let id = req.params.MovieId;
 
-    let sql = `DELETE FROM movies WHERE id =${id} RETURNING *`;
+    let sql = `DELETE FROM movies WHERE id =${id} RETURNING *;`;
 
     client.query(sql).then(result => {
         console.log(result.rows[0]);
@@ -249,6 +253,9 @@ client.connect().then(() => {
         console.log(`Server is running on port ${PORT}`);
     })
 })
+  
+
+
 
 
 /* let movieInfo = new Movie(
